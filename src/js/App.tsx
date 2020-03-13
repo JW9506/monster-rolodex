@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import CardList from "./components/CardList";
+import SearchBox from "./components/SearchBox/index";
 
 export interface Monster {
   id: number;
@@ -34,11 +35,7 @@ class App extends React.Component<{}, AppState> {
     });
     return (
       <div className="App">
-        <input
-          type="search"
-          placeholder="search monster"
-          onChange={this.searchFieldHandler}
-        />
+        <SearchBox onChangeHandler={this.searchFieldHandler}/>
         <CardList monsters={filteredMonsters} />
       </div>
     );
