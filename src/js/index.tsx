@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "./App";
 import "../css/index.scss";
 import About from "./pages/About";
-
+import { PUBLIC_URL } from "Config";
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path="/" exact>
+      <Route path={PUBLIC_URL} exact>
         <App />
       </Route>
-      <Route path="/about" exact>
+      <Route path={`${PUBLIC_URL}/about`} exact>
         <About />
       </Route>
     </Switch>

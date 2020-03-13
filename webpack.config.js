@@ -6,12 +6,14 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
-const publicURLRoot = "/monster-rolodex";
-const SPATitle = "Monster Rolodex!";
+const { PUBLIC_URL, TITLE} = require("./Config");
+const publicURLRoot = PUBLIC_URL;
+const SPATitle = TITLE;
 
 module.exports = (_, { mode = "production" }) => {
   const isProduction = mode === "production";
   const isDevelopment = !isProduction;
+  process.env.NODE_ENV = mode;
   process.env.BABEL_ENV = mode;
   const commonCSSLoaders = [
     isProduction ? MiniCssExtractPlugin.loader : "style-loader",
@@ -91,7 +93,10 @@ module.exports = (_, { mode = "production" }) => {
       ]
     },
     resolve: {
-      extensions: [".js", ".jsx", ".ts", ".tsx"]
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
+      alias: {
+        Config: path.resolve(__dirname, "Config.js")
+      }
     },
     optimization: {
       splitChunks: {

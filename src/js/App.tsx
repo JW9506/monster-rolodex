@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import CardList from "./components/CardList";
 import SearchBox from "./components/SearchBox/index";
+import { PUBLIC_URL } from "Config";
 
 export interface Monster {
   id: number;
@@ -45,7 +46,9 @@ class App extends React.Component<{}, AppState> {
         />
 
         <CardList monsters={filteredMonsters} />
-        <Link to="/about" style={{color: "#fff"}}>About</Link>
+        <Link to={`${PUBLIC_URL}/about`} style={{ color: "#fff" }}>
+          About
+        </Link>
       </div>
     );
   }
