@@ -5,8 +5,8 @@ const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
-const publicURLRoot = "/";
-const SPATitle = "Demo";
+const publicURLRoot = "/monster-rolodex";
+const SPATitle = "Monster Rolodex!";
 
 module.exports = (_, { mode = "production" }) => {
   const isProduction = mode === "production";
