@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import CardList from "./components/CardList";
 import SearchBox from "./components/SearchBox/index";
 
@@ -44,6 +45,7 @@ class App extends React.Component<{}, AppState> {
         />
 
         <CardList monsters={filteredMonsters} />
+        <Link to="/about" style={{color: "#fff"}}>About</Link>
       </div>
     );
   }

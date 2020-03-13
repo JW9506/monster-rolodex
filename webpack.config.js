@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
 const publicURLRoot = "/monster-rolodex";
@@ -125,7 +126,8 @@ module.exports = (_, { mode = "production" }) => {
           hash: true,
           outputPath: "js",
           publicPath: `${publicURLRoot}/js`.replace(/\/\//g, "/")
-        })
+        }),
+      isProduction && new CopyPlugin(["src/404.html"])
     ].filter(Boolean),
     devServer: {
       compress: true,
