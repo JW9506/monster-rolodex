@@ -3,13 +3,14 @@ import "./index.scss";
 
 interface SearchBoxProps {
   onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
+  placeholder: string;
 }
-const SearchBox: React.FC<SearchBoxProps> = ({ onChangeHandler }) => {
+const SearchBox: React.FC<SearchBoxProps> = ({ onChangeHandler, placeholder }) => {
   return (
     <input
       className="search"
       type="search"
-      placeholder="search monster"
+      placeholder={placeholder}
       onChange={onChangeHandler}
     />
   );

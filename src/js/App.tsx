@@ -30,12 +30,18 @@ class App extends React.Component<{}, AppState> {
       });
   }
   render() {
-    const filteredMonsters = this.state.monsters.filter((m) => {
-      return m.name.toLowerCase().includes(this.state.searchField.toLowerCase());
+    const filteredMonsters = this.state.monsters.filter(m => {
+      return m.name
+        .toLowerCase()
+        .includes(this.state.searchField.toLowerCase());
     });
     return (
       <div className="App">
-        <SearchBox onChangeHandler={this.searchFieldHandler}/>
+        <SearchBox
+          onChangeHandler={this.searchFieldHandler}
+          placeholder="search monster"
+        />
+
         <CardList monsters={filteredMonsters} />
       </div>
     );
