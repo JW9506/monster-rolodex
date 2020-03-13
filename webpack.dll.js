@@ -4,7 +4,7 @@ module.exports = (_, { mode = "production" }) => {
   const config = {
     mode,
     entry: {
-      react: ["react", "react-dom"]
+      react: ["react", "react-dom", "react-router-dom"]
     },
     output: {
       filename: "[name].js",
