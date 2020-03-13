@@ -30,7 +30,7 @@ class App extends React.Component<{}, AppState> {
   }
   render() {
     const filteredMonsters = this.state.monsters.filter((m) => {
-      return m.name.toLowerCase().startsWith(this.state.searchField);
+      return m.name.toLowerCase().startsWith(this.state.searchField.toLowerCase());
     });
     return (
       <div className="App">
