@@ -37,6 +37,7 @@ class App extends React.Component<{}, AppState> {
     });
     return (
       <div className="App">
+        <h1>Monster Rolodex</h1>
         <SearchBox
           onChangeHandler={this.searchFieldHandler}
           placeholder="search monster"
