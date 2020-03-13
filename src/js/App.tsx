@@ -9,10 +9,16 @@ export interface Monster {
 }
 interface AppState {
   monsters: Monster[];
+  searchField: string;
 }
 class App extends React.Component<{}, AppState> {
   state: AppState = {
-    monsters: []
+    monsters: [],
+    searchField: ""
+  };
+  searchFieldHandler: React.ChangeEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
+    this.setState({ searchField: e.target.value });
   };
   componentDidMount() {
     axios
@@ -23,9 +29,17 @@ class App extends React.Component<{}, AppState> {
       });
   }
   render() {
+    const filteredMonsters = this.state.monsters.filter((m) => {
+      return m.name.toLowerCase().startsWith(this.state.searchField);
+    });
     return (
       <div className="App">
-        <CardList monsters={this.state.monsters} />
+        <input
+          type="search"
+          placeholder="search monster"
+          onChange={this.searchFieldHandler}
+        />
+        <CardList monsters={filteredMonsters} />
       </div>
     );
   }
