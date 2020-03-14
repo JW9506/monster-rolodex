@@ -8,7 +8,7 @@ import { PUBLIC_URL } from "Config";
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path={PUBLIC_URL} exact>
+      <Route path={`${PUBLIC_URL}/`} exact>
         <App />
       </Route>
       <Route path={`${PUBLIC_URL}/about`} exact>
