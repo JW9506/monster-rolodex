@@ -1,4 +1,4 @@
 module.exports = {
-  PUBLIC_URL: "",
+  PUBLIC_URL: "/monster-rolodex",
   TITLE: "Monster Rolodex!"
 };
