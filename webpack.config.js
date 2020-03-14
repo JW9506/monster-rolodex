@@ -6,15 +6,15 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
-const { PUBLIC_URL, TITLE } = require("./Config");
-const publicURLRoot = "/" + PUBLIC_URL;
-const SPATitle = TITLE;
 
 module.exports = (_, { mode = "production" }) => {
   const isProduction = mode === "production";
   const isDevelopment = !isProduction;
   process.env.NODE_ENV = mode;
   process.env.BABEL_ENV = mode;
+  const { PUBLIC_URL, TITLE } = require("./Config");
+  const publicURLRoot = "/" + PUBLIC_URL;
+  const SPATitle = TITLE;
   const commonCSSLoaders = [
     isProduction ? MiniCssExtractPlugin.loader : "style-loader",
     "css-loader",
@@ -140,7 +140,7 @@ module.exports = (_, { mode = "production" }) => {
       contentBase: path.resolve(__dirname, "public"),
       contentBasePublicPath: publicURLRoot.replace(/\/+/g, "/"),
       historyApiFallback: {
-        rewrites: [{ from: "/./", to: publicURLRoot.replace(/\/+/g, "/") }]
+        rewrites: [{ from: /./, to: publicURLRoot.replace(/\/+/g, "/") }]
       }
     },
     performance: {
