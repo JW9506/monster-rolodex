@@ -6,8 +6,8 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
-const { PUBLIC_URL, TITLE} = require("./Config");
-const publicURLRoot = PUBLIC_URL;
+const { PUBLIC_URL, TITLE } = require("./Config");
+const publicURLRoot = "/" + PUBLIC_URL;
 const SPATitle = TITLE;
 
 module.exports = (_, { mode = "production" }) => {
@@ -32,7 +32,7 @@ module.exports = (_, { mode = "production" }) => {
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "js/[name].[hash:10].js",
-      publicPath: publicURLRoot
+      publicPath: publicURLRoot.replace(/\/+/g, "/")
     },
     module: {
       rules: [
@@ -72,7 +72,7 @@ module.exports = (_, { mode = "production" }) => {
                 limit: 8 * 1024,
                 name: "[contenthash:10].[ext]",
                 outputPath: "imgs",
-                publicPath: `${publicURLRoot}/imgs`.replace(/\/\//g, "/")
+                publicPath: `${publicURLRoot}/imgs`.replace(/\/+/g, "/")
               }
             },
             {
@@ -109,14 +109,14 @@ module.exports = (_, { mode = "production" }) => {
         memoryLimit: 4096
       }),
       new HtmlWebpackPlugin({
-        template: "./src/index.html",
+        template: "./public/index.html",
         filename: "index.html",
         title: SPATitle,
         minify: {
           removeComments: isProduction,
           collapseWhitespace: isProduction
         },
-        favicon: "src/favicon.ico"
+        favicon: "public/favicon.ico"
       }),
       isProduction &&
         new MiniCssExtractPlugin({ filename: "css/main.[contenthash:10].css" }),
@@ -130,15 +130,18 @@ module.exports = (_, { mode = "production" }) => {
           filepath: path.resolve(__dirname, "dll/react.js"),
           hash: true,
           outputPath: "js",
-          publicPath: `${publicURLRoot}/js`.replace(/\/\//g, "/")
+          publicPath: `${publicURLRoot}/js`.replace(/\/+/g, "/")
         }),
-      isProduction && new CopyPlugin(["src/404.html"])
+      isProduction && new CopyPlugin(["public/404.html"])
     ].filter(Boolean),
     devServer: {
       compress: true,
       hot: true,
       contentBase: path.resolve(__dirname, "public"),
-      historyApiFallback: true
+      contentBasePublicPath: publicURLRoot.replace(/\/+/g, "/"),
+      historyApiFallback: {
+        rewrites: [{ from: "/./", to: publicURLRoot.replace(/\/+/g, "/") }]
+      }
     },
     performance: {
       assetFilter(assetFilename) {
